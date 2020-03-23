@@ -1,0 +1,40 @@
+﻿@model TestCTT.Models.LoginModel
+
+
+@using (Html.BeginForm("Login", "Data", FormMethod.Post))
+{
+    @Html.TextBoxFor(x => x.Id, new { @class = "form-control" })
+
+    <button type="submit">LOGIN</button>
+}
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("MenuVoices", "Data")",
+            dataType: "json",
+            success: (data) => {
+                console.log('data', data)
+                if (data) {
+                    var html = '';
+                    data.forEach(d => {
+                        html += `<li><a href="${d.controller}/${d.azione}">${d.descrizione}</a></li>`
+                        //alt+96 ``
+                    })
+                    $("#navbar").html(html);
+                  
+                }
+
+            }
+        });
+
+
+    })
+
+</script>
